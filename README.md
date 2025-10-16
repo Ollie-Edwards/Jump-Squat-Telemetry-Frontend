@@ -1,3 +1,10 @@
+
+# For Backend and overall project explanation see:
+
+## https://github.com/Ollie-Edwards/Jump-Squat-Telemetry-Backend
+
+<br><br><br><br>
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
