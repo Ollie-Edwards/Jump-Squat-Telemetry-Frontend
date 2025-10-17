@@ -58,8 +58,8 @@ export const options = {
 interface GraphData {
   time: number[];
   acceleration: number[];
-  start_idx?: number;
-  takeoff_idx?: number;
+  velocity:  number[];
+  start_time?: number;
   takeoff_time?: number;
 }
 
@@ -106,15 +106,24 @@ function DataPage() {
           annotations: {
             verticalLine1: {
               type: "line",
-              xMin: data?.start_idx ?? -1,
-              xMax: data?.start_idx ?? -1,
-              borderColor: "blue"
+              xMin: data?.start_time ?? -1,
+              xMax: data?.start_time ?? -1,
+              borderColor: "rgba(30, 144, 255, 0.4)",
+              borderDash: [4, 4],
             },
             verticalLine2: {
               type: "line",
-              xMin: data?.takeoff_idx ?? -1,
-              xMax: data?.takeoff_idx ?? -1,
-              borderColor: "blue"
+              xMin: data?.takeoff_time ?? -1,
+              xMax: data?.takeoff_time ?? -1,
+              borderColor: "rgba(30, 144, 255, 0.4)",
+              borderDash: [4, 4],
+            },
+            axisLine: {
+              type: "line",
+              yMin: 0,
+              yMax: 0,
+              borderColor: "rgba(0, 0, 0, 0.2)",
+              borderDash: [4, 2],
             },
           },
         },
@@ -137,6 +146,14 @@ function DataPage() {
         pointRadius: 1,
         pointHoverRadius: 8,
       },
+      {
+        label: "Velocity",
+        data: data?.velocity ?? [], // Y axis
+        borderColor: "rgba(113, 134, 255)",
+        backgroundColor: "rgba(113, 134, 255, 0.5)",
+        pointRadius: 1,
+        pointHoverRadius: 8,
+      },
     ],
   };
 
@@ -146,18 +163,25 @@ function DataPage() {
     <>
       {data ? (
         <>
-          <ul>
-            {/* Basic way to show important info on screen */}
-            {Object.keys(data).map((key, index) => (
-              <li key={index}>
-                {key}
-              </li>
-            ))}
-          </ul>
-          <Line ref={chartRef} options={chartOptions} data={graphDatainfo} />
+          <Line className="m-10" ref={chartRef} options={chartOptions} data={graphDatainfo} />
+          
+          <div className="p-6 bg-gray-50 rounded-2xl shadow-md max-w-2xl mx-auto">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800">Jump Analysis Results</h2>
+
+            <ul className="divide-y divide-gray-200">
+              {Object.entries(data).map(([key, value]) => (
+                <li key={key} className="py-2 flex justify-between">
+                  <span className="font-medium text-gray-700">
+                    {key.replaceAll("_", " ")}
+                  </span>
+                  <span className="text-gray-900">{String(value)}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </>
       ) : (
-        <><h1>Oops, no data found?</h1></>
+        <><h1>No data available.</h1></>
       )}
     </>
   );
