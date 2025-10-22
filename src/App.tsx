@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index.tsx";
 import DataPage from "./pages/DataPage.tsx"
-import { NavigationMenuDemo } from "./components/NavBar.tsx"
+import { NavMenu } from "./components/NavBar.tsx"
 
 function App() {
   return (
     <>
-      <NavigationMenuDemo />
+      <NavMenu />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />

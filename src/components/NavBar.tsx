@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/navigation-menu"
 
 
-export function NavigationMenuDemo() {
+export function NavMenu() {
   return (
     <nav className="w-full border-b bg-background">
       <div className="container mx-auto flex items-center justify-between px-4 py-3">
