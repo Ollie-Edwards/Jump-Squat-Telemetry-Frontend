@@ -18,8 +18,9 @@ function CreateAthleteForm() {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    // e.preventDefault();
     setLoading(true);
+    // check null
     const response = await createAthlete(formData["name"])
     setLoading(false);
     console.log(response)
