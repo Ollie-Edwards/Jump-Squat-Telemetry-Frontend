@@ -56,6 +56,7 @@ export const options = {
 };
 
 interface GraphData {
+  name: string,
   time: number[];
   acceleration: number[];
   velocity:  number[];
@@ -91,13 +92,14 @@ function DataPage() {
     const maxAcceleration = Math.max(...data.acceleration ) + 5;
 
     const maxTime = Math.max(...data.time );
+    const minTime = Math.min(...data.time );
 
     setChartOptions((prev) => ({
       ...prev,
       // Update scales
       scales: {
         y: { ...prev.scales.y, min: minAcceleration, max: maxAcceleration},
-        x: { ...prev.scales.x, min: 0, max: maxTime, ticks: { ...prev.scales?.x?.ticks }},
+        x: { ...prev.scales.x, min: minTime, max: maxTime, ticks: { ...prev.scales?.x?.ticks }},
       },
       plugins: {
         ...prev.plugins,
@@ -163,6 +165,7 @@ function DataPage() {
     <>
       {data ? (
         <>
+          <h1 className="text-4xl text-center my-5">{data.name}</h1>
           <Line className="m-10" ref={chartRef} options={chartOptions} data={graphDatainfo} />
           
           <div className="p-6 bg-gray-50 rounded-2xl shadow-md max-w-2xl mx-auto">
