@@ -30,7 +30,50 @@ function SingleAthleteData() {
     </div>
 
       {
-        (trialData) ? <MultiGraph datasets={[...trialData, ...trialData2]} title="Jumps Comparison" /> : <></>
+        (trialData || trialData2) ? 
+        <>
+        <MultiGraph datasets={[...trialData, ...trialData2]} title="Jumps Comparison" />
+        
+        {/* quick fix */}
+        <div className="flex flex-row">
+          <div className="p-6 bg-gray-50 rounded-2xl shadow-md max-w-2xl mx-auto">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+              Jump Analysis Results
+            </h2>
+
+            { trialData ? 
+            <ul className="divide-y divide-gray-200">
+              {Object.entries(trialData[0]).map(([key, value]) => (
+                <li key={key} className="py-2 flex justify-between">
+                  <span className="font-medium text-gray-700">
+                    {key.replaceAll("_", " ")}
+                  </span>
+                  <span className="text-gray-900">{String(value)}</span>
+                </li>
+              ))}
+            </ul> : <></> }
+          </div>
+
+          <div className="p-6 bg-gray-50 rounded-2xl shadow-md max-w-2xl mx-auto">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+              Jump Analysis Results
+            </h2>
+            
+            { trialData2 ? 
+            <ul className="divide-y divide-gray-200">
+              {Object.entries(trialData2[0]).map(([key, value]) => (
+                <li key={key} className="py-2 flex justify-between">
+                  <span className="font-medium text-gray-700">
+                    {key.replaceAll("_", " ")}
+                  </span>
+                  <span className="text-gray-900">{String(value)}</span>
+                </li>
+              ))}
+            </ul> : <></> }
+          </div>
+        </div>;
+        </>
+        : <></>
       }
     </>
   )
