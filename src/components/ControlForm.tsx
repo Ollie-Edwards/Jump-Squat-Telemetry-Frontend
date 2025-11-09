@@ -1,7 +1,5 @@
 import { Button } from "@/components/ui/button";
 
-import { beginRecording } from "../api/manageSensor.ts" 
-
 import { useState } from "react";
 
 function ControlForm() {
@@ -17,8 +15,8 @@ function ControlForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const response = await beginRecording(formData["duration"], formData["name"])
-    console.log(response)
+    // const response = await beginRecording(formData["duration"], formData["name"])
+    // console.log(response)
   };
 
   return (

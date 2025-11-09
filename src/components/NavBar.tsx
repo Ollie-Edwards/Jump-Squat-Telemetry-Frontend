@@ -10,7 +10,6 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 
-
 export function NavMenu() {
   return (
     <nav className="w-full border-b bg-background">
