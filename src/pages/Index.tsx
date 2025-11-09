@@ -7,7 +7,6 @@ function Index() {
   return (
     <>
       <CheckConnection />
-      <Countdown />
       <ControlForm />
       <hr/>
       <RecordingList />
