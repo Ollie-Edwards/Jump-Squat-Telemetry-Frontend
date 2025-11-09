@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
-
-import { beginRecording } from "../api/manageSensor.ts" 
+import { Countdown } from "./Countdown";
 
 import { useState } from "react";
 
 function ControlForm() {
-  const [formData, setFormData] = useState({ name: "Default", duration: 3.0 });
+  const [formData, setFormData] = useState({ name: "Default", duration: 3.0, jumpNum: 3, jumpTime: 5, restTime: 30, barWeight: 60 });
+
+  // sets state of countdown popup
+  const [active, setActive] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
@@ -17,12 +19,22 @@ function ControlForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const response = await beginRecording(formData["duration"], formData["name"])
-    console.log(response)
+    setActive(true)
+    // const response = await beginRecording(formData["duration"], formData["name"])
+    // console.log(response)
   };
 
   return (
     <>
+      < Countdown
+        active = {active}
+        setActive = {setActive}
+        athleteID = {1} 
+        restTime = {formData.restTime}
+        jumpTime = {formData.jumpTime}
+        maxJumpNum = {formData.jumpNum}
+        barWeight = {formData.barWeight}
+      />
       <form
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 w-150 mx-auto mb-10"
@@ -39,7 +51,7 @@ function ControlForm() {
 
         {/* String input */}
         <label>
-          Name:
+          Athlete Name:
           <input
             type="text"
             name="name"
@@ -52,16 +64,70 @@ function ControlForm() {
 
         {/* Float input */}
         <label>
-          Duration:
-          <input
-            type="number"
-            step="0.1"
-            name="duration"
-            value={formData.duration}
-            onChange={handleChange}
-            placeholder="Enter amount"
-            className="w-full p-2 border rounded"
-          />
+          Rest Time:
+          <div className="flex items-center border rounded p-2">
+            <input
+              type="number"
+              step="0.1"
+              name="restTime"
+              value={formData.restTime}
+              onChange={handleChange}
+              placeholder="Enter amount"
+              className="w-full outline-none"
+            />
+            <span className="ml-2 text-gray-500">seconds</span>
+          </div>
+        </label>
+
+        {/* Float input */}
+        <label>
+          Jump Time:
+          <div className="flex items-center border rounded p-2">
+            <input
+              type="number"
+              step="0.1"
+              name="jumpTime"
+              value={formData.jumpTime}
+              onChange={handleChange}
+              placeholder="Enter amount"
+              className="w-full outline-none"
+            />
+            <span className="ml-2 text-gray-500">seconds</span>
+          </div>
+        </label>
+
+        {/* Float input */}
+        <label>
+          Number of jumps:
+          <div className="flex items-center border rounded p-2">
+            <input
+              type="number"
+              step="1"
+              name="jumpNumber"
+              value={formData.jumpNum}
+              onChange={handleChange}
+              placeholder="Enter amount"
+              className="w-full outline-none"
+            />
+            <span className="ml-2 text-gray-500">reps</span>
+          </div>
+        </label>
+
+        {/* Float input */}
+        <label>
+          Bar Weight:
+          <div className="flex items-center border rounded p-2">
+            <input
+              type="number"
+              step="0.1"
+              name="barWeight"
+              value={formData.barWeight}
+              onChange={handleChange}
+              placeholder="Enter amount"
+              className="w-full outline-none"
+            />
+            <span className="ml-2 text-gray-500">kg</span>
+          </div>
         </label>
       </form>
     </>
